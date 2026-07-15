@@ -12,6 +12,7 @@ from app.models.user import User
 from app.models.resume import Resume
 
 from app.schemas.resume import ResumeResponse
+import os
 
 router = APIRouter(
     prefix="/resume",
@@ -78,3 +79,37 @@ def get_resumes(
     )
 
     return resumes
+
+
+@router.delete("/{resume_id}")
+def delete_resume(
+    resume_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    resume = (
+        db.query(Resume)
+        .filter(
+            Resume.id == resume_id,
+            Resume.user_id == current_user.id
+        )
+        .first()
+    )
+
+    if not resume:
+        raise HTTPException(
+            status_code=404,
+            detail="Resume not found"
+        )
+
+    # Delete file from disk
+    if os.path.exists(resume.file_path):
+        os.remove(resume.file_path)
+
+    # Delete from database
+    db.delete(resume)
+    db.commit()
+
+    return {
+        "message": "Resume deleted successfully"
+    }
