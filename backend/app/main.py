@@ -10,6 +10,9 @@ from app.api.auth import router as auth_router
 
 from app.api.resume import router as resume_router
 
+from app.services.ai_service import analyze_resume
+
+from app.services.ai_service import client
 
 Base.metadata.create_all(bind=engine)
 
@@ -25,3 +28,28 @@ app.include_router(resume_router)
 @app.get("/")
 def home():
     return {"message": "ResumeIQ Backend Running 🚀"}
+
+@app.get("/ai-test")
+def ai_test():
+
+    result = analyze_resume("""
+Python Developer
+
+Skills
+
+Python
+FastAPI
+React
+SQL
+
+Projects
+
+AI Resume Analyzer
+""")
+
+    return result
+
+@app.get("/models")
+def list_models():
+    models = client.models.list()
+    return [model.name for model in models]
