@@ -5,6 +5,8 @@ from app.database.connection import engine
 # Import models
 from app.models import User , Resume
 
+from app.models.analysis import Analysis
+
 # Import routers
 from app.api.auth import router as auth_router
 
@@ -12,18 +14,19 @@ from app.api.resume import router as resume_router
 
 from app.services.ai_service import analyze_resume
 
-from app.services.ai_service import client
+from app.api.analysis import router as analysis_router
 
 Base.metadata.create_all(bind=engine)
-
 
 
 app = FastAPI(title="ResumeIQ API")
 
 app.include_router(auth_router)
 
-
 app.include_router(resume_router)
+
+
+app.include_router(analysis_router)
 
 @app.get("/")
 def home():
@@ -48,8 +51,3 @@ AI Resume Analyzer
 """)
 
     return result
-
-@app.get("/models")
-def list_models():
-    models = client.models.list()
-    return [model.name for model in models]
