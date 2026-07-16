@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime
 from sqlalchemy.sql import func
 from app.database.base import Base
-
+from sqlalchemy import Text
 
 class Resume(Base):
     __tablename__ = "resumes"
@@ -13,6 +13,8 @@ class Resume(Base):
     file_path = Column(String, nullable=False)
 
     file_type = Column(String, nullable=False)
+    
+    parsed_text = Column(Text, nullable=True)
 
     uploaded_at = Column(
         DateTime(timezone=True),
@@ -23,3 +25,8 @@ class Resume(Base):
         Integer,
         ForeignKey("users.id")
     )
+    
+    parsed_text = Column(
+    Text,
+    nullable=True
+)

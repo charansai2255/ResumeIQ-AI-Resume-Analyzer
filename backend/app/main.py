@@ -19,7 +19,6 @@ app = FastAPI(title="ResumeIQ API")
 
 app.include_router(auth_router)
 
-from app.api.resume import router as resume_router
 
 app.include_router(resume_router)
 

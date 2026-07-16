@@ -14,6 +14,8 @@ from app.models.resume import Resume
 from app.schemas.resume import ResumeResponse
 import os
 
+from app.services.parser import parse_resume
+
 router = APIRouter(
     prefix="/resume",
     tags=["Resume"]
@@ -48,12 +50,15 @@ def upload_resume(
 
     with open(file_path, "wb") as buffer:
         shutil.copyfileobj(file.file, buffer)
+        
+    parsed_text = parse_resume(str(file_path))
 
     resume = Resume(
-        filename=file.filename,
-        file_path=str(file_path),
-        file_type=file.content_type,
-        user_id=current_user.id
+    filename=file.filename,
+    file_path=str(file_path),
+    file_type=file.content_type,
+    parsed_text=parsed_text,
+    user_id=current_user.id
     )
 
     db.add(resume)
@@ -80,6 +85,31 @@ def get_resumes(
 
     return resumes
 
+@router.get("/{resume_id}/text")
+def get_resume_text(
+    resume_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    resume = (
+        db.query(Resume)
+        .filter(
+            Resume.id == resume_id,
+            Resume.user_id == current_user.id
+        )
+        .first()
+    )
+
+    if not resume:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Resume not found"
+        )
+
+    return {
+        "filename": resume.filename,
+        "parsed_text": resume.parsed_text
+    }
 
 @router.delete("/{resume_id}")
 def delete_resume(
