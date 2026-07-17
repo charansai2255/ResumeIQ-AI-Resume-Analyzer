@@ -20,6 +20,8 @@ from app.api.job_analysis import router as job_analysis_router
 
 from app.api.cover_letter import router as cover_letter_router
 
+from app.api.resume_summary import router as resume_summary_router
+
 Base.metadata.create_all(bind=engine)
 
 
@@ -34,6 +36,8 @@ app.include_router(analysis_router)
 app.include_router(job_analysis_router)
 
 app.include_router(cover_letter_router)
+
+app.include_router(resume_summary_router)
 
 @app.get("/")
 def home():
