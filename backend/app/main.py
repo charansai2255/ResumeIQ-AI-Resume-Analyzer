@@ -16,6 +16,8 @@ from app.services.ai_service import analyze_resume
 
 from app.api.analysis import router as analysis_router
 
+from app.api.job_analysis import router as job_analysis_router
+
 Base.metadata.create_all(bind=engine)
 
 
@@ -25,8 +27,9 @@ app.include_router(auth_router)
 
 app.include_router(resume_router)
 
-
 app.include_router(analysis_router)
+
+app.include_router(job_analysis_router)
 
 @app.get("/")
 def home():
