@@ -15,15 +15,51 @@ import {
 } from "lucide-react";
 
 const menuItems = [
-  { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
-  { name: "Upload Resume", path: "/upload", icon: Upload },
-  { name: "Resume History", path: "/history", icon: FileText },
-  { name: "ATS Analysis", path: "/analysis", icon: BarChart3 },
-  { name: "Job Match", path: "/job-match", icon: Briefcase },
-  { name: "Cover Letter", path: "/cover-letter", icon: FileSignature },
-  { name: "Resume Summary", path: "/resume-summary", icon: ScrollText },
-  { name: "Interview Questions", path: "/interview", icon: MessageSquare },
-  { name: "Profile", path: "/profile", icon: User },
+  {
+    name: "Dashboard",
+    path: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    name: "Upload Resume",
+    path: "/upload",
+    icon: Upload,
+  },
+  {
+    name: "Resume History",
+    path: "/history",
+    icon: FileText,
+  },
+  {
+    name: "ATS Analysis",
+    path: "/ats-analysis",
+    icon: BarChart3,
+  },
+  {
+    name: "Job Match",
+    path: "/job-match",
+    icon: Briefcase,
+  },
+  {
+    name: "Cover Letter",
+    path: "/cover-letter",
+    icon: FileSignature,
+  },
+  {
+    name: "Resume Summary",
+    path: "/resume-summary",
+    icon: ScrollText,
+  },
+  {
+    name: "Interview Questions",
+    path: "/interview",
+    icon: MessageSquare,
+  },
+  {
+    name: "Profile",
+    path: "/profile",
+    icon: User,
+  },
 ];
 
 function Sidebar() {
