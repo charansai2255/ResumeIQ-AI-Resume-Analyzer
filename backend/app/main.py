@@ -26,6 +26,8 @@ from app.api.interview_questions import router as interview_questions_router
 
 from fastapi.middleware.cors import CORSMiddleware
 
+from app.api.dashboard import router as dashboard_router
+
 Base.metadata.create_all(bind=engine)
 
 
@@ -54,6 +56,8 @@ app.include_router(cover_letter_router)
 app.include_router(resume_summary_router)
 
 app.include_router(interview_questions_router)
+
+app.include_router(dashboard_router)
 
 @app.get("/")
 def home():

@@ -26,7 +26,3 @@ class Resume(Base):
         ForeignKey("users.id")
     )
     
-    parsed_text = Column(
-    Text,
-    nullable=True
-)
