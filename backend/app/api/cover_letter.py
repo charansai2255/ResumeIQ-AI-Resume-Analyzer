@@ -70,3 +70,44 @@ def create_cover_letter(
     return {
         "cover_letter": cover_letter
     }
+    
+@router.get("/{resume_id}", response_model=CoverLetterResponse)
+def get_cover_letter(
+    resume_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+
+    # Check resume ownership
+    resume = (
+        db.query(Resume)
+        .filter(
+            Resume.id == resume_id,
+            Resume.user_id == current_user.id
+        )
+        .first()
+    )
+
+    if not resume:
+        raise HTTPException(
+            status_code=404,
+            detail="Resume not found"
+        )
+
+    # Get latest cover letter
+    letter = (
+        db.query(CoverLetter)
+        .filter(CoverLetter.resume_id == resume_id)
+        .order_by(CoverLetter.id.desc())
+        .first()
+    )
+
+    if not letter:
+        raise HTTPException(
+            status_code=404,
+            detail="Cover letter not found"
+        )
+
+    return CoverLetterResponse(
+        cover_letter=letter.cover_letter
+    )

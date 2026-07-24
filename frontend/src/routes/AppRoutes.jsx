@@ -8,6 +8,14 @@ import ProtectedRoute from "../components/layout/ProtectedRoute";
 import ResumeHistory from "../pages/dashboard/ResumeHistory";
 import ATSAnalysis from "../pages/dashboard/ATSAnalysis";
 import ATSResult from "../pages/dashboard/ATSResult";
+import JobMatch from "../pages/dashboard/JobMatch";
+import JobMatchResult from "../pages/dashboard/JobMatchResult";
+import CoverLetter from "../pages/dashboard/CoverLetter";
+import CoverLetterResult from "../pages/dashboard/CoverLetterResult";
+import ResumeSummary from "../pages/dashboard/ResumeSummary";
+import ResumeSummaryResult from "../pages/dashboard/ResumeSummaryResult";
+import InterviewQuestions from "../pages/dashboard/InterviewQuestions";
+import InterviewQuestionsResult from "../pages/dashboard/InterviewQuestionsResult";
 
 export default function AppRoutes() {
   return (
@@ -58,6 +66,78 @@ export default function AppRoutes() {
   element={
     <ProtectedRoute>
       <ATSResult />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/job-match"
+  element={
+    <ProtectedRoute>
+      <JobMatch />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/job-match/result/:resumeId"
+  element={
+    <ProtectedRoute>
+      <JobMatchResult />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/cover-letter"
+  element={
+    <ProtectedRoute>
+      <CoverLetter />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/cover-letter/result/:resumeId"
+  element={
+    <ProtectedRoute>
+      <CoverLetterResult />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/resume-summary"
+  element={
+    <ProtectedRoute>
+      <ResumeSummary />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/resume-summary/result/:resumeId"
+  element={
+    <ProtectedRoute>
+      <ResumeSummaryResult />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/interview"
+  element={
+    <ProtectedRoute>
+      <InterviewQuestions />
+    </ProtectedRoute>
+  }
+/>
+
+<Route
+  path="/interview-questions/result/:resumeId"
+  element={
+    <ProtectedRoute>
+      <InterviewQuestionsResult />
     </ProtectedRoute>
   }
 />
