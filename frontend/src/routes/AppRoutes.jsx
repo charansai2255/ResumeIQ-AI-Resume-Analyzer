@@ -16,6 +16,7 @@ import ResumeSummary from "../pages/dashboard/ResumeSummary";
 import ResumeSummaryResult from "../pages/dashboard/ResumeSummaryResult";
 import InterviewQuestions from "../pages/dashboard/InterviewQuestions";
 import InterviewQuestionsResult from "../pages/dashboard/InterviewQuestionsResult";
+import Profile from "../pages/dashboard/Profile";
 
 export default function AppRoutes() {
   return (
@@ -141,6 +142,8 @@ export default function AppRoutes() {
     </ProtectedRoute>
   }
 />
+
+<Route path="/profile" element={<Profile />} />
 
       </Routes>
     </BrowserRouter>

@@ -40,10 +40,6 @@ function StatCard({
 
       </div>
 
-      <div className="mt-6 flex items-center text-blue-600 text-sm">
-        View Details
-        <ArrowRight size={16} className="ml-2" />
-      </div>
 
     </div>
   );
