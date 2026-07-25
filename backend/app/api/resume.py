@@ -10,6 +10,11 @@ from app.database.session import get_db
 from app.auth.oauth2 import get_current_user
 from app.models.user import User
 from app.models.resume import Resume
+from app.models.analysis import Analysis
+from app.models.cover_letter import CoverLetter
+from app.models.job_analysis import JobAnalysis
+from app.models.resume_summary import ResumeSummary
+from app.models.interview_questions import InterviewQuestions
 
 from app.schemas.resume import ResumeResponse
 import os
@@ -132,14 +137,27 @@ def delete_resume(
             detail="Resume not found"
         )
 
-    # Delete file from disk
-    if os.path.exists(resume.file_path):
-        os.remove(resume.file_path)
+    # Delete all related child records first (avoid FK constraint violations)
+    db.query(Analysis).filter(Analysis.resume_id == resume_id).delete()
+    db.query(CoverLetter).filter(CoverLetter.resume_id == resume_id).delete()
+    db.query(JobAnalysis).filter(JobAnalysis.resume_id == resume_id).delete()
+    db.query(ResumeSummary).filter(ResumeSummary.resume_id == resume_id).delete()
+    db.query(InterviewQuestions).filter(InterviewQuestions.resume_id == resume_id).delete()
 
-    # Delete from database
+    # Delete file from disk (resolve absolute path safely)
+    try:
+        file_path = Path(resume.file_path)
+        if not file_path.is_absolute():
+            file_path = Path(__file__).parent.parent.parent / file_path
+        if file_path.exists():
+            file_path.unlink()
+    except Exception:
+        pass  # Don't fail if file is already missing
+
+    # Delete resume from database
     db.delete(resume)
     db.commit()
 
     return {
         "message": "Resume deleted successfully"
-    }
+    }

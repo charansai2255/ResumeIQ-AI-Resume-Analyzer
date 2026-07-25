@@ -1,8 +1,14 @@
+import os
 import json
+from dotenv import load_dotenv
 from app.services.ai_service import client
+
+load_dotenv()
 
 
 def generate_interview_questions(resume_text: str, job_role: str | None):
+
+    MODEL = os.getenv("GEMINI_MODEL")
 
     prompt = f"""
 You are an experienced technical interviewer.
@@ -32,7 +38,7 @@ Requirements:
 """
 
     response = client.models.generate_content(
-        model="gemini-flash-latest",
+        model=MODEL,
         contents=prompt
     )
 

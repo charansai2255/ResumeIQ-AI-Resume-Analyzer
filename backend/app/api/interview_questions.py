@@ -59,6 +59,7 @@ def create_interview_questions(
     if existing_questions:
         return {
             "message": "Interview questions already exist",
+            "id": existing_questions.id,
             "interview_questions": {
                 "technical_questions": existing_questions.technical_questions,
                 "hr_questions": existing_questions.hr_questions,
@@ -89,6 +90,7 @@ def create_interview_questions(
 
     return {
         "message": "Interview questions generated successfully",
+        "id": interview_questions.id,
         "interview_questions": result,
     }
 

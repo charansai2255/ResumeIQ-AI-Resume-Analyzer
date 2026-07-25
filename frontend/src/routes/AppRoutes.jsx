@@ -143,6 +143,15 @@ export default function AppRoutes() {
   }
 />
 
+<Route
+  path="/interview-questions/result/:resumeId/:sessionId"
+  element={
+    <ProtectedRoute>
+      <InterviewQuestionsResult />
+    </ProtectedRoute>
+  }
+/>
+
 <Route path="/profile" element={<Profile />} />
 
       </Routes>
