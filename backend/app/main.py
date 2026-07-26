@@ -28,6 +28,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.api.dashboard import router as dashboard_router
 
+from app.api.gemini_models import router as gemini_models_router
+
 Base.metadata.create_all(bind=engine)
 
 
@@ -58,6 +60,8 @@ app.include_router(resume_summary_router)
 app.include_router(interview_questions_router)
 
 app.include_router(dashboard_router)
+
+app.include_router(gemini_models_router)
 
 @app.get("/")
 def home():

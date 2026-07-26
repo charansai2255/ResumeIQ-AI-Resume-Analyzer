@@ -32,7 +32,7 @@ Return ONLY the cover letter text.
 """
 
     response = client.models.generate_content(
-        model="gemini-flash-latest",
+        model="gemini-3-flash-preview",
         contents=prompt
     )
 
