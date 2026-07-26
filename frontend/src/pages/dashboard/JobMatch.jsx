@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { getResumes } from "../../api/resume";
-import { matchResume } from "../../api/jobMatch";
+import { matchResume } from "../../api/JobMatch";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-hot-toast";
 import { Briefcase, ArrowRight } from "lucide-react";
