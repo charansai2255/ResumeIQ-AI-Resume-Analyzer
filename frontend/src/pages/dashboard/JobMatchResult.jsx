@@ -6,7 +6,7 @@ import { CheckCircle, XCircle, AlertTriangle, Lightbulb, BadgeCheck, Briefcase }
 import DashboardLayout from "../../layouts/DashboardLayout";
 import ScoreCard from "../../components/common/ScoreCard";
 import AnalysisCard from "../../components/common/AnalysisCard";
-import { getJobMatch } from "../../api/jobMatch";
+import { getJobMatch } from "../../api/jobmatch";
 
 function JobMatchResult() {
   const { resumeId } = useParams();
