@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from app.database.base import Base
 from app.database.connection import engine
+import os
 
 # Import models
 from app.models import User , Resume
@@ -35,10 +36,17 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="ResumeIQ API")
 
+
+FRONTEND_URL = os.getenv(
+    "FRONTEND_URL",
+    "http://localhost:5173"
+)
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
+        FRONTEND_URL,
     ],
     allow_credentials=True,
     allow_methods=["*"],
