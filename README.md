@@ -1,76 +1,397 @@
-# ResumeIQ
+# ResumeIQ – AI-Powered Resume Analyzer
 
-ResumeIQ is an AI-powered resume analysis platform that helps job seekers review and improve their resumes. The application supports resume upload and parsing, ATS-style analysis, job description matching, cover letter generation, interview question generation, and resume summary generation.
+ResumeIQ is a full-stack AI-powered resume analysis and career assistance platform designed to help job seekers evaluate, improve, and tailor their resumes.
 
-## Overview
+Users can upload resumes, analyze ATS compatibility, compare resumes against job descriptions, generate personalized cover letters, create resume summaries, and prepare for interviews using AI-generated questions.
 
-ResumeIQ is built as a full-stack application with:
+## Live Application
 
-- Frontend: React + Vite + Tailwind CSS
-- Backend: FastAPI + SQLAlchemy
-- Database: PostgreSQL (via SQLAlchemy engine configuration)
-- AI: Gemini-powered analysis and content generation
-- Auth: JWT-based user authentication
+**Live Demo:**  
+https://resume-iq-ai-resume-analyzer-2fthpshrw-charansai04s-projects.vercel.app/
 
-## Current Features
+The frontend is deployed on **Vercel**, while the FastAPI backend is hosted on **Render** with a PostgreSQL database.
 
-- User authentication and protected API routes
-- Resume upload for PDF and DOCX files
-- Resume parsing and storage
-- ATS-style analysis with strengths, weaknesses, missing skills, and suggestions
-- Job analysis and match scoring against a job description
-- Cover letter generation for a target company and role
-- Interview question generation
-- Resume summary generation
+---
+
+## Features
+
+### Authentication
+
+- User registration and login
+- JWT-based authentication
+- Protected frontend routes
+- Protected FastAPI endpoints
+- User profile
+- Secure logout functionality
+
+### Resume Management
+
+- Upload PDF and DOCX resumes
+- Extract and parse resume content
+- Store resume information in PostgreSQL
+- Resume history
+- User-specific resume management
+
+### ATS Resume Analysis
+
+Analyze a resume using AI and receive:
+
+- ATS score
+- Resume strengths
+- Resume weaknesses
+- Missing skills
+- Improvement suggestions
+- Suitable job roles
+- Interview preparation insights
+
+### Job Match Analysis
+
+Compare a resume against a job description and generate:
+
+- Match score
+- Matching skills
+- Missing skills
+- Strengths
+- Weaknesses
+- Improvement suggestions
+
+### AI Cover Letter Generator
+
+Generate personalized cover letters based on:
+
+- Resume
+- Company name
+- Job title
+- Job description
+
+### Resume Summary Generator
+
+Generate a concise professional summary based on the uploaded resume.
+
+### Interview Question Generator
+
+Generate interview preparation questions including:
+
+- Technical questions
+- HR questions
+- Project-based questions
+- Coding questions
+
+### Dashboard
+
+The ResumeIQ dashboard provides:
+
+- Total resumes
+- ATS analyses
+- Job matches
+- Cover letters generated
+- Resume summaries generated
+- Interview question sets
+- Recent activity
+- ATS score trends
+- Quick access to ResumeIQ features
+
+---
+
+## Tech Stack
+
+### Frontend
+
+- React
+- Vite
+- Tailwind CSS
+- React Router
+- Axios
+- React Hook Form
+- Lucide React
+- React Hot Toast
+
+### Backend
+
+- Python
+- FastAPI
+- SQLAlchemy
+- Pydantic
+- JWT Authentication
+- REST APIs
+
+### Database
+
+- PostgreSQL
+- Neon PostgreSQL
+
+### AI
+
+- Google Gemini API
+- Gemini models for resume analysis and content generation
+
+### Resume Processing
+
+- PyMuPDF for PDF parsing
+- python-docx for DOCX processing
+
+### Deployment
+
+- **Frontend:** Vercel
+- **Backend:** Render
+- **Database:** Neon PostgreSQL
+
+---
+
+## Architecture
+
+```text
+User
+ │
+ ▼
+React + Vite Frontend
+ │
+ │ REST API / JWT
+ ▼
+FastAPI Backend
+ │
+ ├──────────────► Google Gemini API
+ │
+ ▼
+PostgreSQL / Neon
+```
+
+---
 
 ## Project Structure
 
-- backend/app: FastAPI application, routers, services, models, schemas, auth, database setup
-- frontend/src: React application entry points and UI components
-- uploads: uploaded resume files are stored here during processing
-
-## Environment Variables
-
-Create a .env file in the backend directory with at least the following values:
-
-```env
-DATABASE_URL=postgresql://<user>:<password>@<host>:<port>/<database>
-SECRET_KEY=your-secret-key
-ALGORITHM=HS256
-ACCESS_TOKEN_EXPIRE_MINUTES=30
-GEMINI_API_KEY=your-gemini-api-key
-GEMINI_MODEL=gemini-flash-latest
+```text
+ResumeIQ/
+│
+├── backend/
+│   ├── app/
+│   │   ├── api/
+│   │   ├── auth/
+│   │   ├── config/
+│   │   ├── core/
+│   │   ├── database/
+│   │   ├── middleware/
+│   │   ├── models/
+│   │   ├── schemas/
+│   │   ├── services/
+│   │   ├── utils/
+│   │   └── main.py
+│   │
+│   ├── uploads/
+│   └── requirements.txt
+│
+├── frontend/
+│   ├── src/
+│   │   ├── api/
+│   │   ├── assets/
+│   │   ├── components/
+│   │   ├── context/
+│   │   ├── layouts/
+│   │   ├── pages/
+│   │   └── routes/
+│   │
+│   ├── package.json
+│   └── vite.config.js
+│
+└── README.md
 ```
 
-## Backend Setup
+---
+
+## Local Development
+
+### 1. Clone the repository
+
+```bash
+git clone <your-repository-url>
+cd ResumeIQ
+```
+
+### 2. Backend Setup
 
 ```bash
 cd backend
-pip install -r requirements.txt
-uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
+python -m venv venv
 ```
 
-The API documentation will be available at:
+Activate the virtual environment.
 
-- http://127.0.0.1:8000/docs
-- http://127.0.0.1:8000/redoc
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+macOS/Linux:
+
+```bash
+source venv/bin/activate
+```
+
+Install dependencies:
+
+```bash
+pip install -r requirements.txt
+```
+
+Create:
+
+```text
+backend/.env
+```
+
+Add:
+
+```env
+DATABASE_URL=your-postgresql-database-url
+SECRET_KEY=your-secret-key
+ALGORITHM=HS256
+ACCESS_TOKEN_EXPIRE_MINUTES=30
+
+GEMINI_API_KEY=your-gemini-api-key
+GEMINI_MODEL=your-supported-gemini-model
+```
+
+Start FastAPI:
+
+```bash
+uvicorn app.main:app --reload
+```
+
+Backend:
+
+```text
+http://127.0.0.1:8000
+```
+
+Swagger documentation:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+ReDoc:
+
+```text
+http://127.0.0.1:8000/redoc
+```
+
+---
 
 ## Frontend Setup
+
+Open another terminal:
 
 ```bash
 cd frontend
 npm install
+```
+
+Create:
+
+```text
+frontend/.env
+```
+
+Add:
+
+```env
+VITE_API_URL=http://127.0.0.1:8000
+```
+
+Start the frontend:
+
+```bash
 npm run dev
 ```
 
-The frontend will usually run at http://localhost:5173.
+Frontend:
 
-## Development Notes
+```text
+http://localhost:5173
+```
 
-- Backend routes are organized by feature under backend/app/api.
-- AI-powered services live under backend/app/services.
-- Resume files are saved in the uploads folder and linked to the user record in the database.
+---
+
+## Production Configuration
+
+The production frontend uses the deployed FastAPI backend through:
+
+```env
+VITE_API_URL=https://your-backend-url.onrender.com
+```
+
+The backend should allow the deployed frontend domain through CORS.
+
+Sensitive values such as database credentials, JWT secrets, and Gemini API keys should be configured through environment variables and must not be committed to GitHub.
+
+---
+
+## API Documentation
+
+FastAPI automatically provides interactive API documentation.
+
+After starting the backend locally:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+The API includes endpoints for:
+
+- Authentication
+- Resume management
+- ATS analysis
+- Job matching
+- Cover letter generation
+- Resume summaries
+- Interview questions
+- Dashboard data
+- User profile
+
+---
+
+## Security
+
+ResumeIQ implements:
+
+- JWT authentication
+- Password hashing
+- Protected API endpoints
+- User-specific resources
+- Environment-based secret management
+- CORS configuration
+- Authentication-aware frontend routes
+
+---
+
+## Future Improvements
+
+Potential improvements include:
+
+- Password change and password recovery
+- Resume recommendations based on target roles
+- Multiple resume versions
+- Improved ATS analytics and visualizations
+- Resume comparison
+- Export generated cover letters
+- Enhanced interview preparation
+- Improved mobile responsiveness
+
+---
 
 ## Status
 
-This repository currently includes the backend API structure and a React/Vite frontend scaffold, with core resume analysis and generation workflows implemented in the backend.
+**ResumeIQ is deployed and functional.**
+
+Core workflows currently include:
+
+**Upload Resume → ATS Analysis → Job Match → Cover Letter → Resume Summary → Interview Questions**
+
+---
+
+## Author
+
+**Charan Sai Macha**
+
+Full-Stack Developer | Python | FastAPI | React | AI Integration
