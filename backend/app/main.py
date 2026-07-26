@@ -46,6 +46,7 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:5173",
+        "https://resume-iq-ai-resume-analyzer-2fthpshrw-charansai04s-projects.vercel.app",
         FRONTEND_URL,
     ],
     allow_credentials=True,
